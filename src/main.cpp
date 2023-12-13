@@ -48,10 +48,8 @@ int main(){
     
     // Send through the rotors, reflector, and back through the rotors
     for(int i = 0; i < message.length(); i++){
-        r[0]->rotateRotor();
-        if(r[0]->getRotorPosition() == 0){
-            r[1]->rotateRotor();
-            if(r[1]->getRotorPosition() == 0){
+        if(r[0]->rotateRotor()){
+            if(r[1]->rotateRotor()){
                 r[2]->rotateRotor();
             }
         }

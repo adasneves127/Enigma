@@ -1,4 +1,5 @@
 #include "rotor.h"
+#include <iostream>
 
 
 rotor::rotor(){
@@ -51,6 +52,7 @@ int rotor::getRotorPosition(){
 }
 
 char rotor::getRotorForward(char input){
+    if(input - 'A' > 25 or input - 'A' < 0) return input;
     return rotorMapping[input - 'A'];
 }
 
@@ -60,9 +62,10 @@ char rotor::getRotorBackward(char input){
             return i + 'A';
         }
     }
+    return input;
 }
 
-void rotor::setRotorMapping(char* mapping){
+void rotor::setRotorMapping(const char* mapping){
     for(int i = 0; i < 26; i++){
         rotorMapping[i] = mapping[i];
     }

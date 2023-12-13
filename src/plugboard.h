@@ -4,8 +4,8 @@ class plugboard{
     public:
     plugboard();
     ~plugboard();
-    void setPlugboard(char* mapping);
+    void setPlugboard(const char* mapping);
     char getPlugboardOutput(char input);
     private:
-    char** plugboardMapping;
+    char* plugboardMapping;
 };

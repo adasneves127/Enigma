@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
+#include <stdio.h>
 #include "rotor.h"
 #include "reflector.h"
 #include "plugboard.h"
+#include <chrono>
 
 rotor* r[3];
 reflector* reflect;
@@ -16,6 +18,10 @@ void setRotations();
 void setPlugs();
 std::string sendPlugs(std::string s);
 void printMsg(std::string s);
+std::string encodeMessage(std::string message);
+void writeConfig();
+
+FILE* outputFile;
 
 int main(){
     // Set up the rotors
@@ -35,8 +41,25 @@ int main(){
     std::cout << "Enter the message to encrypt: ";
     std::cin.getline( messageBuf, 100 );
     message = messageBuf;
-    
 
+    // Save the message to a file. File title is Unix Timestamp, and should be in the 'messages' folder
+    std::string fileName = "messages/";
+    fileName += std::to_string(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+    fileName += ".txt";
+    outputFile = fopen(fileName.c_str(), "w");
+    // Write the initial configuration to the file
+    writeConfig();
+
+    message = encodeMessage(message);
+
+    fprintf(outputFile, "Encoded Message: %s\n", message.c_str());
+    fclose(outputFile);
+    
+    std::cout << "Encrypted message: " << message << std::endl;
+}
+
+std::string encodeMessage(std::string message){
+    std::string output;
     // Convert the message to uppercase
     for(int i = 0; i < message.length(); i++){
         message[i] = toupper(message[i]);
@@ -65,8 +88,8 @@ int main(){
 
 
     // Send the message back through the plugboard
-    message = sendPlugs(message);
-    std::cout << "Encrypted message: " << message << std::endl;
+    output = sendPlugs(message);
+    return output;
 }
 
 void setUpRotors(){
@@ -160,4 +183,18 @@ void printMsg(std::string s){
         std::cout << i << ": " << s[i] << std::endl;
     }
     std::cout << std::endl;
+}
+
+void writeConfig(){
+    fprintf(outputFile, "Initial configuration:\n");
+    fprintf(outputFile, "Rotor Numbers: \n");
+    fprintf(outputFile, "Rotor 1: %d\n", r[0]->getRotorNumber());
+    fprintf(outputFile, "Rotor 2: %d\n", r[1]->getRotorNumber());
+    fprintf(outputFile, "Rotor 3: %d\n", r[2]->getRotorNumber());
+    fprintf(outputFile, "Rotor Positions:\n");
+    fprintf(outputFile, "Rotor 1: %d\n", r[0]->getRotorPosition());
+    fprintf(outputFile, "Rotor 2: %d\n", r[1]->getRotorPosition());
+    fprintf(outputFile, "Rotor 3: %d\n", r[2]->getRotorPosition());
+    fprintf(outputFile, "Plugboard: \n%s", plugs->getPlugboard());
+    fprintf(outputFile, "Reflector: %s\n", reflectorMap);
 }

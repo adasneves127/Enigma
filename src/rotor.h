@@ -12,8 +12,9 @@ class rotor{
     char getRotorBackward(char input);
     void setRotorMapping(const char* mapping);
     int setRotorPosition(int position);
+    int getRotorNumber();
     private:
     int rotorPosition;
     char* rotorMapping;
-
+    int rotorNumber;
 };

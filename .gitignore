@@ -1,0 +1,4 @@
+*.o
+*.ipynb
+ipynb_checkpoints
+messages

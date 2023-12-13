@@ -12,6 +12,7 @@ rotor::~rotor(){
 }
 
 void rotor::setRotor(int rotorNumber){
+    this->rotorNumber = rotorNumber;
     switch(rotorNumber){
         case 1:
             setRotorMapping("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
@@ -31,6 +32,10 @@ void rotor::setRotor(int rotorNumber){
         default:
             break;
     }
+}
+
+int rotor::getRotorNumber(){
+    return rotorNumber;
 }
 
 int rotor::rotateRotor(){

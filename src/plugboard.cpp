@@ -22,19 +22,22 @@ char plugboard::getPlugboardOutput(char input){
 
 
 char* plugboard::getPlugboard(){
-    std::string returnString = "";
+    // Return a char* of plugboard pairs
+    std::string plugPairs;
     for(int i = 0; i < 26; i++){
-        char x = this->plugboardMapping[i];
-        char y = i + 'A';
-        if(x != ' '){ 
-            returnString.push_back(y);
-            returnString.push_back(x);
-            returnString.push_back('\n');
+        bool inPairs = false;
+        if(plugboardMapping[i] == ' ') continue;
+        for(int j = 0; j < plugPairs.length(); j++){
+            if(plugboardMapping[i] == plugPairs[j]) 
+                inPairs = true;
         }
+        if(inPairs) continue;
+        std::cout << (char)(i + 'A') << " " << plugboardMapping[i] << std::endl;
+        plugPairs.push_back('\t');
+        plugPairs.push_back((char)(i + 'A'));
+        plugPairs.push_back(plugboardMapping[i]);
+        plugPairs.push_back('\n');
     }
-
-    if(returnString.length() == 0){
-        returnString = "(none)\n";
-    }
-    return (char*)returnString.c_str();
+    if(plugPairs.length() == 0) return (char*) "(No Plugs Set)\n";
+    return (char*)plugPairs.c_str();
 }

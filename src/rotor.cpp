@@ -56,7 +56,7 @@ int rotor::getRotorPosition(){
 }
 
 char rotor::getRotorForward(char input){
-    if(input - 'A' > 25 or input - 'A' < 0) return input;
+    if(input - 'A' > 25 || input - 'A' < 0) return input;
     return rotorMapping[input - 'A'];
 }
 

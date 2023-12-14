@@ -1,6 +1,7 @@
 
 all: main.o plugboard.o reflector.o rotor.o
 	g++ -o Enigma ./src/main.o ./src/plugboard.o ./src/reflector.o ./src/rotor.o
+	mkdir -p messages
 
 rotor.o:
 	cd src;	g++ -c rotor.cpp

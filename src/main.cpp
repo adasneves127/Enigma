@@ -9,7 +9,7 @@
 rotor* r[3];
 reflector* reflect;
 plugboard* plugs;
-
+                          //ABCDEFGHIJKLMNOPQRSTUVWXYZ
 const char* reflectorMap = "ZXJKMQRPUCDVEYWHFGTSILOBNA";
 
 
@@ -26,8 +26,9 @@ int loop();
 FILE* outputFile;
 
 int main(){
-    setUpMachine();
-    while(loop()){
+    while(true){
+        setUpMachine();
+        while(loop());
     }
 }
 
@@ -198,13 +199,13 @@ void writeConfig(){
     outputFile = fopen(fileName.c_str(), "w");
     fprintf(outputFile, "Initial configuration:\n");
     fprintf(outputFile, "Rotor Numbers: \n");
-    fprintf(outputFile, "Rotor 1: %d\n", r[0]->getRotorNumber());
-    fprintf(outputFile, "Rotor 2: %d\n", r[1]->getRotorNumber());
-    fprintf(outputFile, "Rotor 3: %d\n", r[2]->getRotorNumber());
+    fprintf(outputFile, "\tRotor 1: %d\n", r[0]->getRotorNumber());
+    fprintf(outputFile, "\tRotor 2: %d\n", r[1]->getRotorNumber());
+    fprintf(outputFile, "\tRotor 3: %d\n", r[2]->getRotorNumber());
     fprintf(outputFile, "Rotor Positions:\n");
-    fprintf(outputFile, "Rotor 1: %d\n", r[0]->getRotorPosition());
-    fprintf(outputFile, "Rotor 2: %d\n", r[1]->getRotorPosition());
-    fprintf(outputFile, "Rotor 3: %d\n", r[2]->getRotorPosition());
+    fprintf(outputFile, "\tRotor 1: %d\n", r[0]->getRotorPosition());
+    fprintf(outputFile, "\tRotor 2: %d\n", r[1]->getRotorPosition());
+    fprintf(outputFile, "\tRotor 3: %d\n", r[2]->getRotorPosition());
     fprintf(outputFile, "Plugboard: \n%s", plugs->getPlugboard());
     fprintf(outputFile, "Reflector: %s\n", reflectorMap);
 }

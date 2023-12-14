@@ -24,17 +24,10 @@ void writeConfig();
 FILE* outputFile;
 
 int main(){
-    // Set up the rotors
-    setUpRotors();
+    
+}
 
-    // Set up the reflector
-    reflect = new reflector();
-    reflect->setReflector(reflectorMap);
-
-    // Set up the plugboard
-    plugs = new plugboard();
-    setPlugs();
-
+void encodeMessage(){
     // Get the message to encrypt
     std::string message;
     char messageBuf[100];
@@ -56,6 +49,19 @@ int main(){
     fclose(outputFile);
     
     std::cout << "Encrypted message: " << message << std::endl;
+}
+
+void setUpMachine(){
+    // Set up the rotors
+    setUpRotors();
+
+    // Set up the reflector
+    reflect = new reflector();
+    reflect->setReflector(reflectorMap);
+
+    // Set up the plugboard
+    plugs = new plugboard();
+    setPlugs();
 }
 
 std::string encodeMessage(std::string message){

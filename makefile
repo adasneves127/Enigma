@@ -2,8 +2,6 @@
 all: main.o plugboard.o reflector.o rotor.o
 	g++ -o Enigma ./src/main.o ./src/plugboard.o ./src/reflector.o ./src/rotor.o
 
-
-
 rotor.o:
 	cd src;	g++ -c rotor.cpp
 
@@ -15,3 +13,6 @@ plugboard.o:
 
 main.o:
 	cd src;	g++ -c main.cpp
+
+clean:
+	rm -f ./src/*.o Enigma

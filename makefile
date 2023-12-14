@@ -15,4 +15,4 @@ main.o:
 	cd src;	g++ -c main.cpp
 
 clean:
-	rm -f ./src/*.o Enigma
+	rm -f ./src/*.o Enigma ./messages/*.txt

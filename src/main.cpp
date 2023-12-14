@@ -20,28 +20,26 @@ std::string sendPlugs(std::string s);
 void printMsg(std::string s);
 std::string encodeMessage(std::string message);
 void writeConfig();
+void setUpMachine();
+int loop();
 
 FILE* outputFile;
 
 int main(){
-    while(1){
-        
+    setUpMachine();
+    while(loop()){
     }
 }
 
-void encodeMessage(){
+int loop(){
     // Get the message to encrypt
     std::string message;
     char messageBuf[100];
     std::cout << "Enter the message to encrypt: ";
     std::cin.getline( messageBuf, 100 );
     message = messageBuf;
+    if(message == "") return 0;
 
-    // Save the message to a file. File title is Unix Timestamp, and should be in the 'messages' folder
-    std::string fileName = "messages/";
-    fileName += std::to_string(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
-    fileName += ".txt";
-    outputFile = fopen(fileName.c_str(), "w");
     // Write the initial configuration to the file
     writeConfig();
 
@@ -51,6 +49,7 @@ void encodeMessage(){
     fclose(outputFile);
     
     std::cout << "Encrypted message: " << message << std::endl;
+    return 1;
 }
 
 void setUpMachine(){
@@ -106,7 +105,6 @@ void setUpRotors(){
     r[1] = new rotor();
     r[2] = new rotor();
 
-
     // Set the rotors. Ask the user for the rotor number.
     int rotorNumber;
     char buf[20];
@@ -154,7 +152,7 @@ void setPlugs(){
     std::string plugboardMap;
     std::cout << "Enter the plugboard mapping (Ex. AB,CD,EF): ";
     std::cin.getline(plugboardMapping, 60);
-
+    plugboardMap = plugboardMapping;
     char plugMap[26];
 
     for(int i = 0; i < 26; i++){
@@ -194,6 +192,10 @@ void printMsg(std::string s){
 }
 
 void writeConfig(){
+    std::string fileName = "messages/";
+    fileName += std::to_string(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+    fileName += ".txt";
+    outputFile = fopen(fileName.c_str(), "w");
     fprintf(outputFile, "Initial configuration:\n");
     fprintf(outputFile, "Rotor Numbers: \n");
     fprintf(outputFile, "Rotor 1: %d\n", r[0]->getRotorNumber());

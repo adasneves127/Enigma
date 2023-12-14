@@ -1,5 +1,4 @@
 #include "rotor.h"
-#include <iostream>
 
 
 rotor::rotor(){

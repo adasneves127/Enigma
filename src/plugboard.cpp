@@ -1,5 +1,4 @@
 #include "plugboard.h"
-#include <iostream>
 
 plugboard::plugboard(){
     plugboardMapping = new char[26];
@@ -25,16 +24,17 @@ char plugboard::getPlugboardOutput(char input){
 char* plugboard::getPlugboard(){
     std::string returnString = "";
     for(int i = 0; i < 26; i++){
-        char x = plugboardMapping[i];
+        char x = this->plugboardMapping[i];
         char y = i + 'A';
-        if(x != ' '){
+        if(x != ' '){ 
             returnString.push_back(y);
             returnString.push_back(x);
             returnString.push_back('\n');
         }
     }
 
-    if(returnString.length() == 0) 
+    if(returnString.length() == 0){
         returnString = "(none)\n";
+    }
     return (char*)returnString.c_str();
 }
